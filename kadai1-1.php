@@ -21,29 +21,25 @@
   <?php
   // 「送信」されたら数値を受け取る
   if (!empty($_POST['submit'])) {
+    // 全角を半角に変換する処理
+    $fizznum = mb_convert_kana($_POST['fizznum'], 'rn');
+    $buzznum = mb_convert_kana($_POST['buzznum'], 'rn');
     //文字か少数かを判定、そうであった場合は以下を処理
-    if (!ctype_digit($_POST['fizznum']) || !ctype_digit($_POST['buzznum'])) {
+    if (!ctype_digit($fizznum) || !ctype_digit($buzznum)) {
       echo '整数を入力してください';
-      return;
     } else {
       // 数値型にキャストして代入する処理
-      $fizz = (int)$_POST['fizznum'];
-      $buzz = (int)$_POST['buzznum'];
+      $fizz = (int)$fizznum;
+      $buzz = (int)$buzznum;
     }
-    // ０だった場合は以下を処理
-    if ($fizz === 0 || $buzz === 0) {
-      echo '整数１以上を入力してください';
-      return;
-    } else {
-      // 整数だった場合は、以下を処理
-      for ($i = 1; $i < 100; $i++) {
-        if ($i % $fizz == 0 && $i % $buzz == 0) {
-          echo '<br>' . 'fizzbuzz;' . $i;
-        } elseif ($i % $fizz == 0) {
-          echo '<br>' . 'fizz;' . $i;
-        } elseif ($i % $buzz == 0) {
-          echo '<br>' . 'buzz;' . $i;
-        }
+
+    for ($i = 1; $i < 100; $i++) {
+      if ($i % $fizz == 0 && $i % $buzz == 0) {
+        echo '<br>' . 'fizzbuzz;' . $i;
+      } elseif ($i % $fizz == 0) {
+        echo '<br>' . 'fizz;' . $i;
+      } elseif ($i % $buzz == 0) {
+        echo '<br>' . 'buzz;' . $i;
       }
     }
   }
